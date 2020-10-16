@@ -1,12 +1,8 @@
 <template>
-  <div>
-    Hello World
-  </div>
+  <!-- Landing Page goes here -->
+  <div>KYS Landing / Home Page</div>
 </template>
 
 <script>
-
-
-export default {
-}
+export default { auth: false, layout: "no-style" };
 </script>

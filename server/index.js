@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { loadNuxt, build } = require('nuxt')
 const app = require('express')()
 const consola = require('consola')

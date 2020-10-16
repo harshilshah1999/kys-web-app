@@ -1,4 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+
 
 export default {
   //loader
@@ -6,7 +9,11 @@ export default {
     color: 'blue',
     height: '5px'
   },
-
+  serverMiddleware: [
+    cookieParser(),
+    bodyParser.json(),
+    '~/server/api'
+  ],
   //nuxt-auth middleware
   router: {
     middleware: ['auth']
