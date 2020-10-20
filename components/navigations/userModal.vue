@@ -5,7 +5,7 @@
 
       <v-card-text>
         <v-avatar>
-          <img :src="$auth.user.picture" :alt="$auth.user.name" />
+          <v-img :src="$auth.user.picture"></v-img>
         </v-avatar>
         <br />
         Email : {{ $auth.user.email }}

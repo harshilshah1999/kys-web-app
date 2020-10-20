@@ -24,7 +24,7 @@ export default {
     redirect: {
       login: '/login',
       logout: '/login',
-      callback: '/login',
+      callback: '/callback',
       home: '/admin'
     },
     strategies: {

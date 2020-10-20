@@ -6,62 +6,67 @@ module.exports = (sequelize, DataTypes) => {
     const Volunteer = sequelize.define('Volunteer', {
         first_name: {
             type: DataTypes.STRING,
-            //allowNull: false
-            get() {
-                return this.getDataValue(first_name).toUpperCase()
-            }
+            allowNull: true
         },
         middle_name: {
             type: DataTypes.STRING,
-            //allowNull: false
+            allowNull: true
         },
         last_name: {
             type: DataTypes.STRING
         },
         phone_number: {
-            type: DataTypes.INTEGER,
-            //allowNull: false
+            type: DataTypes.BIGINT,
+            allowNull: true
         },
         email: {
             type: DataTypes.STRING,
-            //allowNull: false
+            allowNull: true
         },
         profile_picture_path: {
             type: DataTypes.STRING(1000),
-            //allowNull: false
+            allowNull: true
         },
         native_place: {
             type: DataTypes.STRING,
-            //allowNull: false
+            allowNull: true
         },
         gender: {
             type: DataTypes.STRING,
-            //allowNull: false
+            allowNull: true
         },
         address: {
             type: DataTypes.STRING(2000),
-            //allowNull: false
+            allowNull: true
         },
         pin_code: {
             type: DataTypes.INTEGER,
-            //allowNull: false
+            allowNull: true
         },
         date_of_birth: {
             type: DataTypes.DATE,
-            //allowNull: false
+            allowNull: true
         },
         blood_group: {
             type: DataTypes.STRING
         },
         education: {
             type: DataTypes.STRING,
-            //allowNull: false
+            allowNull: true
         },
         occupation: {
             type: DataTypes.STRING,
-            //allowNull: false
+            allowNull: true
         },
-        created_by: {
+        registration_date: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+        expiration_date: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+        createdBy: {
             type: DataTypes.STRING,
         },
         updatedBy: {
@@ -70,14 +75,6 @@ module.exports = (sequelize, DataTypes) => {
         row_state: {
             type: DataTypes.STRING,
             defaultValue: 'alive'
-        },
-        registration_date: {
-            type: DataTypes.DATE,
-            //allowNull: false
-        },
-        expiration_date: {
-            type: DataTypes.DATE,
-            //allowNull: false
         }
     })
     return Volunteer;

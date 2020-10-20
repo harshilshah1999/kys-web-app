@@ -12,7 +12,7 @@
 
     <userModal />
     <v-avatar @click="$root.$emit('openusermodal')" style="cursor: pointer">
-      <img :src="$auth.user.picture" :alt="$auth.user.name" />
+      <v-img :src="$auth.user.picture"></v-img>
     </v-avatar>
   </v-app-bar>
 </template>
