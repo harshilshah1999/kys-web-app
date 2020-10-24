@@ -45,7 +45,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         date_of_birth: {
             type: DataTypes.DATE,
-            allowNull: true
+            allowNull: true,
+            get() {
+                return new Date(this.getDataValue('date_of_birth')).toISOString().substr(0, 10)
+            }
         },
         blood_group: {
             type: DataTypes.STRING
@@ -60,11 +63,17 @@ module.exports = (sequelize, DataTypes) => {
         },
         registration_date: {
             type: DataTypes.DATE,
-            allowNull: true
+            allowNull: true,
+            get() {
+                return new Date(this.getDataValue('registration_date')).toISOString().substr(0, 10)
+            }
         },
         expiration_date: {
             type: DataTypes.DATE,
-            allowNull: true
+            allowNull: true,
+            get() {
+                return new Date(this.getDataValue('expiration_date')).toISOString().substr(0, 10)
+            }
         },
         createdBy: {
             type: DataTypes.STRING,

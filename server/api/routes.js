@@ -1,6 +1,4 @@
 import express from 'express';
-const multer = require('multer');
-const path = require('path');
 const VolunteerController = require('./controllers/VolunteerController');
 
 //Create express Router
@@ -18,25 +16,11 @@ router.use((req, res, next) => {
     next()
 })
 
-// const upload = multer({
-//     dest: './static/volunteer_profile'
-// })
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'static/volunteer_profile')
-    },
-    filename: function (req, file, cb) {
-        console.log(req.headers.filename)
-        cb(null, req.headers.filename + '_' + file.originalname) //Appending extension
-    }
-})
-
-var upload = multer({ storage: storage });
-
 router.route('/createVolunteer').post(VolunteerController.createVolunteer)
-router.route('/uploadVolunteerPicture').post(upload.single('file'), VolunteerController.uploadVolunteerPicture)
+router.route('/uploadVolunteerPicture').post(VolunteerController.uploadVolunteerPicture)
 router.route('/getAllVolunteers').get(VolunteerController.getAllVolunteers)
+router.route('/updateVolunteer').post(VolunteerController.updateVolunteer)
+router.route('/updateVolunteerState').post(VolunteerController.updateVolunteerState)
 router.route('*').get((req, res) => res.send('No Such Endpoint'));
 
 module.exports = router

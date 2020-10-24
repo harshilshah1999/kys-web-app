@@ -1,5 +1,7 @@
-const volunteer = require('../../../models/volunteer');
 const { Volunteer } = require('../../sequelize');
+
+const multer = require('multer');
+const { unlink } = require('fs');
 
 exports.createVolunteer = function (req, res) {
     Volunteer.create(req.body)
@@ -9,13 +11,33 @@ exports.createVolunteer = function (req, res) {
 }
 
 exports.uploadVolunteerPicture = function (req, res) {
-    try {
-        return res.status(201).json({
-            message: 'File uploded successfully'
-        });
-    } catch (error) {
-        res.status(400).send(error)
+    if (req.headers.hasOwnProperty('oldfile')) {
+        unlink('static/volunteer_profile/' + req.headers.oldfile, (err) => console.log(err))
     }
+
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'static/volunteer_profile')
+        },
+        filename: function (req, file, cb) {
+            cb(null, req.headers.filename + '_' + file.originalname) //Appending extension
+        }
+    })
+    var upload = multer({ storage: storage }).single('file');
+
+    upload(req, res, (error) => {
+        if (error instanceof multer.MulterError) {
+            // A Multer error occurred when uploading.
+            res.status(400).send('error')
+        } else if (error) {
+            // An unknown error occurred when uploading.
+            res.status(400).send('error')
+        }
+        else {
+            res.send('File uploaded successfully')
+        }
+
+    })
 }
 
 exports.getAllVolunteers = async function (req, res) {
@@ -24,7 +46,39 @@ exports.getAllVolunteers = async function (req, res) {
         res.send(JSON.stringify(volunteers, null, 2))
     }
     catch (err) {
+        console.log(err)
         res.status(400).send(err)
+
     }
 
+}
+
+exports.updateVolunteer = async function (req, res) {
+    try {
+        const volunteer = await Volunteer.findByPk(req.body.id);
+        const updatedVolunteer = await volunteer.update(req.body, {
+            where: {
+                id: req.body.id
+            }
+        })
+        res.send(updatedVolunteer)
+    }
+    catch (err) {
+        res.status(400).send(err)
+    }
+}
+
+exports.updateVolunteerState = async function (req, res) {
+    try {
+        const volunteer = await Volunteer.findByPk(req.body.id);
+        const updatedVolunteer = await volunteer.update({ row_state: req.body.row_state, updatedBy: req.body.updatedBy }, {
+            where: {
+                id: req.body.id
+            }
+        });
+        res.send(updatedVolunteer)
+    }
+    catch (err) {
+        res.status(400).send(err)
+    }
 }
