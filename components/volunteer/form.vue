@@ -282,32 +282,17 @@
             </v-col>
             <v-col cols="12">
               <v-file-input
-                v-if="type === 'Add'"
-                label="Profile Picture*"
+                :label="
+                  type === 'Add' ? 'Profile Picture*' : 'Update Profile Picture'
+                "
                 placeholder="Select a file"
                 prepend-icon="mdi-camera-account"
                 outlined
                 :show-size="1000"
                 v-model="profile_picture_file"
                 accept="image/*"
-                :rules="[rules.required]"
+                :rules="type === 'Add' ? [rules.required] : []"
                 required
-              >
-                <template v-slot:selection="{ text }">
-                  <v-chip dark label small>
-                    {{ text }}
-                  </v-chip>
-                </template>
-              </v-file-input>
-              <v-file-input
-                v-else
-                label="Update Profile Picture*"
-                placeholder="Select a file"
-                prepend-icon="mdi-camera-account"
-                outlined
-                :show-size="1000"
-                v-model="profile_picture_file"
-                accept="image/*"
               >
                 <template v-slot:selection="{ text }">
                   <v-chip dark label small>
@@ -451,14 +436,13 @@ export default {
         });
     },
     updateVolunteer: function () {
-      let volunteer = { ...this.volunteer };
       let promises = [];
       this.disabled = true;
-      volunteer.updatedBy = this.$auth.user.email;
+      this.volunteer.updatedBy = this.$auth.user.email;
       if (this.profile_picture_file) {
-        const oldFile = volunteer.profile_picture_path;
+        const oldFile = this.volunteer.profile_picture_path;
         const time = Date.now();
-        volunteer.profile_picture_path =
+        this.volunteer.profile_picture_path =
           time + "_" + this.profile_picture_file.name;
         let formData = new FormData();
         formData.append("file", this.profile_picture_file);
@@ -471,20 +455,19 @@ export default {
           })
         );
       }
-      promises.push(this.$axios.post("/api/updateVolunteer", volunteer));
+      promises.push(this.$axios.post("/api/updateVolunteer", this.volunteer));
 
       Promise.all(promises)
         .then((res) => {
           this.volunteer =
             this.profile_picture_file === null ? res[0].data : res[1].data;
+          this.$emit("updateVolunteer", this.volunteer);
           this.$refs.volunteerForm.resetValidation();
           this.profile_picture_file = null;
-          console.log(this.volunteer);
           this.snackbarText = "Volunteer Updated!";
         })
         .catch((err) => {
           this.snackbarText = this.errorText;
-          console.log(err);
         })
         .finally(() => {
           this.snackbar = true;

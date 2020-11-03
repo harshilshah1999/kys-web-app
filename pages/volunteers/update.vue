@@ -1,5 +1,5 @@
 <template>
-  <!-- todo - dynamic loading for avatar and expanded picture, remove direct mutation of props, error handling in unlink node -->
+  <!--error handling in unlink node -->
   <v-card>
     <v-card-title>
       Update Volunteer
@@ -70,7 +70,11 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
-      <volunteerForm type="Update" :volunteer="editedVolunteer" />
+      <volunteerForm
+        type="Update"
+        :volunteer="{ ...editedVolunteer }"
+        @updateVolunteer="updateDataTable"
+      />
     </v-dialog>
     <!--Delete dialog-->
     <v-dialog v-model="dialogDelete" max-width="500px">
@@ -131,6 +135,11 @@ export default {
       });
   },
   methods: {
+    updateDataTable: function ($event) {
+      this.volunteers = this.volunteers.map((volunteer) =>
+        volunteer.id === $event.id ? { ...$event } : volunteer
+      );
+    },
     editVolunteer: function (volunteer) {
       this.dialogEdit = true;
       this.editedVolunteer = volunteer;
