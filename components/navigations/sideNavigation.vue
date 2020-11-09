@@ -71,8 +71,8 @@ export default {
       childItems: [
         { title: "Create", link: "/volunteers/create", parent: "Volunteers" },
         { title: "Update", link: "/volunteers/update", parent: "Volunteers" },
-        { title: "Create", link: "/event/create", parent: "Event" },
-        { title: "Update", link: "/event/update", parent: "Event" },
+        { title: "Create", link: "/shakhas/create", parent: "Shakha" },
+        { title: "Update", link: "/shakhas/update", parent: "Shakha" },
       ],
       sideNav: null,
       mini: null,
