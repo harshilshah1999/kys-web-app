@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const VolunteerModel = require('../models/volunteer')
+const VolunteerModel = require('../models/volunteer');
+const ShakhaModel = require('../models/shakha');
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
@@ -7,6 +8,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
 });
 
 const Volunteer = VolunteerModel(sequelize, DataTypes)
+const Shakha = ShakhaModel(sequelize, DataTypes)
 
 sequelize.authenticate()
     .then(() => console.log('Database Connected'))
@@ -22,5 +24,6 @@ function syncDB() {
 
 module.exports = {
     syncDB,
-    Volunteer
+    Volunteer,
+    Shakha
 }

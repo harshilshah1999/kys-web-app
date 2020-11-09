@@ -1,5 +1,6 @@
 import express from 'express';
 const VolunteerController = require('./controllers/VolunteerController');
+const ShakhaController = require('./controllers/ShakhaController');
 
 //Create express Router
 const router = express.Router()
@@ -16,11 +17,18 @@ router.use((req, res, next) => {
     next()
 })
 
+//volunteers
 router.route('/createVolunteer').post(VolunteerController.createVolunteer)
 router.route('/uploadVolunteerPicture').post(VolunteerController.uploadVolunteerPicture)
 router.route('/getAllVolunteers').get(VolunteerController.getAllVolunteers)
 router.route('/updateVolunteer').post(VolunteerController.updateVolunteer)
 router.route('/updateVolunteerState').post(VolunteerController.updateVolunteerState)
+
+//shakha
+router.route('/createShakha').post(ShakhaController.createShakha)
+router.route('/getAllShakhas').get(ShakhaController.getAllShakha)
+router.route('/updateShakha').post(ShakhaController.updateShakha)
+
 router.route('*').get((req, res) => res.send('No Such Endpoint'));
 
 module.exports = router
