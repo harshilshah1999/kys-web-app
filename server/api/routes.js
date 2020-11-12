@@ -22,7 +22,6 @@ router.route('/createVolunteer').post(VolunteerController.createVolunteer)
 router.route('/uploadVolunteerPicture').post(VolunteerController.uploadVolunteerPicture)
 router.route('/getAllVolunteers').get(VolunteerController.getAllVolunteers)
 router.route('/updateVolunteer').post(VolunteerController.updateVolunteer)
-router.route('/updateVolunteerState').post(VolunteerController.updateVolunteerState)
 
 //shakha
 router.route('/createShakha').post(ShakhaController.createShakha)

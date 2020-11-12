@@ -74,7 +74,7 @@
     </v-dialog>
     <v-checkbox
       v-model="showDeleted"
-      label="Display deleted volunteers"
+      label="Display deleted shaka(s)"
       class="ml-4"
     ></v-checkbox>
   </v-card>

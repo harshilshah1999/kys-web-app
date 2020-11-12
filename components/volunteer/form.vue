@@ -66,7 +66,7 @@
                 <validation-provider
                   v-slot="{ errors }"
                   name="Phone number"
-                  rules="required|max:10"
+                  rules="required|length:10"
                 >
                   <v-text-field
                     type="number"
@@ -181,7 +181,27 @@
                   ></v-select>
                 </validation-provider>
               </v-col>
-              <v-col cols="12" sm="6"> *which organization* </v-col>
+              <v-col cols="12" sm="6">
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="Shakha"
+                  rules="required"
+                >
+                  <v-select
+                    v-model="volunteer.shakha"
+                    :items="shakhas"
+                    item-text="name"
+                    item-value="id"
+                    menu-props="auto"
+                    label="Shakha"
+                    prepend-icon="mdi-source-branch"
+                    single-line
+                    outlined
+                    :error-messages="errors"
+                    required
+                  ></v-select>
+                </validation-provider>
+              </v-col>
               <v-col cols="12" sm="8">
                 <validation-provider
                   v-slot="{ errors }"
@@ -436,7 +456,7 @@
 </template>
 
 <script>
-import { required, email, max } from "vee-validate/dist/rules";
+import { required, email, length } from "vee-validate/dist/rules";
 import {
   extend,
   ValidationObserver,
@@ -457,9 +477,9 @@ extend("email", {
   message: "Email must be valid",
 });
 
-extend("max", {
-  ...max,
-  message: "{_field_} may not be greater than {length} characters",
+extend("length", {
+  ...length,
+  message: "{_field_} should be equal to {length} characters",
 });
 
 export default {
@@ -491,18 +511,20 @@ export default {
           education: "",
           occupation: "",
           profile_picture_path: "",
+          shakha: "",
         };
       },
     },
   },
   data() {
     return {
-      errorText:
-        "Some error occured, please check your internet connection and try again later!",
+      shakhas: [],
       disabled: false,
       snackbar: false,
       profile_picture_file: null,
       snackbarText: "",
+      errorText:
+        "Some error occured, please check your internet connection and try again later!",
     };
   },
   methods: {
@@ -600,6 +622,16 @@ export default {
     save(date) {
       this.$refs.menu.save(date);
     },
+  },
+  mounted() {
+    this.$axios
+      .get("/api/getAllShakhas")
+      .then((res) => {
+        this.shakhas = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
   computed: {
     formattedDateOfBirth: function () {

@@ -67,18 +67,3 @@ exports.updateVolunteer = async function (req, res) {
         res.status(400).send(err)
     }
 }
-
-exports.updateVolunteerState = async function (req, res) {
-    try {
-        const volunteer = await Volunteer.findByPk(req.body.id);
-        const updatedVolunteer = await volunteer.update({ row_state: req.body.row_state, updatedBy: req.body.updatedBy }, {
-            where: {
-                id: req.body.id
-            }
-        });
-        res.send(updatedVolunteer)
-    }
-    catch (err) {
-        res.status(400).send(err)
-    }
-}

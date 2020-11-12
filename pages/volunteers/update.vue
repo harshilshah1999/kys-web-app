@@ -122,6 +122,7 @@ export default {
         { text: "Actions", value: "actions", sortable: false },
       ],
       volunteers: [],
+      shakhas: [],
     };
   },
   mounted() {
@@ -133,6 +134,11 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+
+    this.$axios
+      .get("/api/getAllShakhas")
+      .then((res) => (this.shakhas = res.data))
+      .catch((err) => console.log(err));
   },
   methods: {
     updateDataTable: function ($event) {
@@ -143,6 +149,9 @@ export default {
     editVolunteer: function (volunteer) {
       this.dialogEdit = true;
       this.editedVolunteer = volunteer;
+      this.editedVolunteer.shakha = this.shakhas.find(
+        (shakha) => shakha.id == volunteer.shakha
+      );
     },
     openDeleteDialog: function (volunteer) {
       this.dialogDelete = true;
@@ -150,9 +159,9 @@ export default {
     },
     deleteVolunteer: function () {
       this.$axios
-        .post("/api/updateVolunteerState", {
+        .post("/api/updateVolunteer", {
+          ...this.deletedVolunteer,
           row_state: "deleted",
-          id: this.deletedVolunteer.id,
           updatedBy: this.$auth.user.email,
         })
         .then((res) => {

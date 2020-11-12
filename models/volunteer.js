@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true
         },
+        shakha: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         profile_picture_path: {
             type: DataTypes.STRING(1000),
             allowNull: true
