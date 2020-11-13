@@ -32,16 +32,17 @@
                   name="State"
                   rules="required"
                 >
-                  <v-text-field
-                    outlined
+                  <v-select
+                    v-model="shakha.state"
+                    :items="indian_states"
+                    menu-props="auto"
                     label="State"
                     prepend-icon="mdi-home-city-outline"
-                    clearable
-                    clear-icon="mdi-close-circle"
-                    v-model="shakha.state"
+                    single-line
+                    outlined
                     :error-messages="errors"
                     required
-                  ></v-text-field>
+                  ></v-select>
                 </validation-provider>
               </v-col>
               <v-col cols="12" sm="6">
@@ -114,6 +115,7 @@
 </template>
 
 <script>
+import { indian_states } from "@/assets/js/indian_states";
 import { required, email, length } from "vee-validate/dist/rules";
 import {
   extend,
@@ -168,6 +170,7 @@ export default {
       disabled: false,
       snackbar: false,
       snackbarText: "",
+      indian_states,
     };
   },
   methods: {
