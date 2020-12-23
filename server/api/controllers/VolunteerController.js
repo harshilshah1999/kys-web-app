@@ -20,7 +20,7 @@ exports.uploadVolunteerPicture = function (req, res) {
             cb(null, 'static/volunteer_profile')
         },
         filename: function (req, file, cb) {
-            cb(null, req.headers.filename + '_' + file.originalname) //Appending extension
+            cb(null, req.headers.filename + '_' + file.originalname) //Appending date and filename
         }
     })
     var upload = multer({ storage: storage }).single('file');

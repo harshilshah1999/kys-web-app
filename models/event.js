@@ -48,6 +48,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        location: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        cost: {
+            type: DataTypes.BIGINT,
+            allowNull: false
+        },
         createdBy: {
             type: DataTypes.STRING,
         },

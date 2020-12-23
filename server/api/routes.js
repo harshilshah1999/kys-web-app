@@ -32,7 +32,8 @@ router.route('/updateShakha').post(ShakhaController.updateShakha)
 //events
 router.route('/createEvent').post(EventController.createEvent)
 router.route('/getAllEvents').get(EventController.getAllEvents)
-router.route('/updateEvent').post(ShakhaController.updateEvent)
+router.route('/updateEvent').post(EventController.updateEvent)
+router.route('/uploadClosedEventImages').post(EventController.uploadClosedEventImages)
 
 router.route('*').get((req, res) => res.send('No Such Endpoint'));
 

@@ -22,7 +22,6 @@
       "
       :search="search"
       :item-class="rowClass"
-      show-expand
     >
       <template v-slot:item.actions="{ item }">
         <template v-if="item.row_state !== 'deleted'">
@@ -34,11 +33,6 @@
           </v-icon>
         </template>
         <template v-else> ---- </template>
-      </template>
-      <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length" class="grey lighten-4">
-          <expandedDetails :details="item" />
-        </td>
       </template>
     </v-data-table>
     <!--Edit dialog-->

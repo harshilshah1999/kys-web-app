@@ -73,6 +73,8 @@ export default {
         { title: "Update", link: "/volunteers/update", parent: "Volunteers" },
         { title: "Create", link: "/shakhas/create", parent: "Shakha" },
         { title: "Update", link: "/shakhas/update", parent: "Shakha" },
+        { title: "Create", link: "/events/create", parent: "Event" },
+        { title: "Update", link: "/events/update", parent: "Event" },
       ],
       sideNav: null,
       mini: null,

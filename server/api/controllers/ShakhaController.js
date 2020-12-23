@@ -1,4 +1,3 @@
-const shakha = require('../../../models/shakha');
 const { Shakha } = require('../../sequelize')
 
 exports.createShakha = function (req, res) {
