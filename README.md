@@ -10,3 +10,4 @@
 6. Reporting and Analytics: The system generates comprehensive reports and analytics, providing insights into event attendance, donor statistics, volunteer participation, and overall impact. These reports aid in decision-making and future planning.
 7. Notifications and Communication: The web application incorporates a messaging system to send notifications, updates, and reminders to volunteers, donors, and event attendees.
 8. Secure User Authentication: The system ensures secure user authentication and role-based access control to protect sensitive data and allow appropriate access to authorized personnel.
+test
